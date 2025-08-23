@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -966,6 +966,16 @@
                 <a href="#" onclick="showPage('doubt-page'); toggleNav();"><span class="material-icons">help_outline</span> Ask a Doubt</a>
                 <a href="#"><span class="material-icons">send</span> Telegram Channel</a>
                 <a href="#"><span class="material-icons">chat</span> WhatsApp Support</a>
+                    <a href="javascript:void(0)" onclick="showPage('user-profile-page')">
+        <span class="material-icons">person</span> My Profile
+    </a>
+    <a href="javascript:void(0)" onclick="showPage('test-scoreboard-page')">
+        <span class="material-icons">leaderboard</span> Test Scoreboard
+    </a>
+    <hr>
+    <a href="javascript:void(0)" onclick="logoutUser()">
+        <span class="material-icons">logout</span> Logout
+    </a>
                 <a href="#" onclick="showPage('settings-page'); toggleNav();"><span class="material-icons">settings</span> Settings</a>
             </div>
 
@@ -1060,6 +1070,35 @@
                     </div>
                 </div>
                 
+                <<div id="user-profile-page" class="page">
+    <button class="back-button" onclick="goBack()"><span class="material-icons">arrow_back</span></button>
+    <h2 class="header-title">All User Details</h2>
+    <div id="profile-code-section" class="profile-section">
+        <p>Please enter the unique code to view user details.</p>
+        <div class="input-container">
+            <input type="password" id="profile-code-input" placeholder="Enter Unique Code" />
+            <button class="submit-btn" onclick="verifyRajsirCode()">Submit</button>
+        </div>
+        <p id="profile-error-message" style="color: red; display: none;">Invalid code.</p>
+    </div>
+    <div id="user-details" class="profile-details-container" style="display: none;">
+        </div>
+</div>
+
+<div id="test-scoreboard-page" class="page">
+    <button class="back-button" onclick="goBack()"><span class="material-icons">arrow_back</span></button>
+    <h2 class="header-title">Student Test Scores</h2>
+    <div class="scoreboard-container">
+        <div class="scoreboard-header">
+            <span class="score-name">Name</span>
+            <span class="score-class">Class</span>
+            <span class="score-points">Score</span>
+        </div>
+        <div id="scoreboard-list" class="scoreboard-list">
+            </div>
+    </div>
+</div>
+                
                 <div id="pv-batches-page" class="page">
                     <button class="back-button" onclick="goBack()"><span class="material-icons">arrow_back</span></button>
                     <h2 class="header-title">PV Batches</h2>
@@ -1076,76 +1115,75 @@
                         <ul id="batch-details-features"></ul>
                     </div>
                 </div>
+                               <div id="all-classes-page" class="page">
+    <button class="back-button" onclick="goBack()"><span class="material-icons">arrow_back</span></button>
+    <h2 class="header-title">All Classes</h2>
+    <div class="card-list">
+        <div class="card live-card" onclick="showPage('live-classes-page')">
+            <h3>Live Classes</h3>
+            <span class="material-icons">arrow_forward_ios</span>
+        </div>
+        <div class="card" onclick="showClassInfoPage('6th')">
+            <h3>6th</h3>
+            <span class="material-icons">arrow_forward_ios</span>
+        </div>
+        <div class="card" onclick="showClassInfoPage('7th')">
+            <h3>7th</h3>
+            <span class="material-icons">arrow_forward_ios</span>
+        </div>
+        <div class="card" onclick="showClassInfoPage('8th')">
+            <h3>8th</h3>
+            <span class="material-icons">arrow_forward_ios</span>
+        </div>
+        <div class="card" onclick="showClassInfoPage('9th')">
+            <h3>9th</h3>
+            <span class="material-icons">arrow_forward_ios</span>
+        </div>
+        <div class="card" onclick="showClassInfoPage('10th')">
+            <h3>10th</h3>
+            <span class="material-icons">arrow_forward_ios</span>
+        </div>
+        <div class="card" onclick="showClassInfoPage('11th JEE')">
+            <h3>11th JEE</h3>
+            <span class="material-icons">arrow_forward_ios</span>
+        </div>
+        <div class="card" onclick="showClassInfoPage('12th JEE')">
+            <h3>12th JEE</h3>
+            <span class="material-icons">arrow_forward_ios</span>
+        </div>
+        <div class="card" onclick="showClassInfoPage('11th NEET')">
+            <h3>11th NEET</h3>
+            <span class="material-icons">arrow_forward_ios</span>
+        </div>
+        <div class="card" onclick="showClassInfoPage('12th NEET')">
+            <h3>12th NEET</h3>
+            <span class="material-icons">arrow_forward_ios</span>
+        </div>
+    </div>
+</div>
 
-                <                <div id="all-classes-page" class="page">
-                    <button class="back-button" onclick="goBack()"><span class="material-icons">arrow_back</span></button>
-                    <h2 class="header-title">All Classes</h2>
-                    <div class="card-list">
-                        <div class="card live-card" onclick="showPage('live-classes-page')">
-                            <h3>Live Classes</h3>
-                            <span class="material-icons">arrow_forward_ios</span>
-                        </div>
-                        <div class="card" onclick="showClassInfoPage('6th')">
-                            <h3>6th</h3>
-                            <span class="material-icons">arrow_forward_ios</span>
-                        </div>
-                        <div class="card" onclick="showClassInfoPage('7th')">
-                            <h3>7th</h3>
-                            <span class="material-icons">arrow_forward_ios</span>
-                        </div>
-                        <div class="card" onclick="showClassInfoPage('8th')">
-                            <h3>8th</h3>
-                            <span class="material-icons">arrow_forward_ios</span>
-                        </div>
-                        <div class="card" onclick="showClassInfoPage('9th')">
-                            <h3>9th</h3>
-                            <span class="material-icons">arrow_forward_ios</span>
-                        </div>
-                        <div class="card" onclick="showClassInfoPage('10th')">
-                            <h3>10th</h3>
-                            <span class="material-icons">arrow_forward_ios</span>
-                        </div>
-                        <div class="card" onclick="showClassInfoPage('11th JEE')">
-                            <h3>11th JEE</h3>
-                            <span class="material-icons">arrow_forward_ios</span>
-                        </div>
-                        <div class="card" onclick="showClassInfoPage('12th JEE')">
-                            <h3>12th JEE</h3>
-                            <span class="material-icons">arrow_forward_ios</span>
-                        </div>
-                        <div class="card" onclick="showClassInfoPage('11th NEET')">
-                            <h3>11th NEET</h3>
-                            <span class="material-icons">arrow_forward_ios</span>
-                        </div>
-                        <div class="card" onclick="showClassInfoPage('12th NEET')">
-                            <h3>12th NEET</h3>
-                            <span class="material-icons">arrow_forward_ios</span>
-                        </div>
-                    </div>
-                </div>
+<div id="class-info-page" class="page">
+    <button class="back-button" onclick="goBack()"><span class="material-icons">arrow_back</span></button>
+    <h2 id="class-info-title" class="header-title"></h2>
+    <div class="banner">
+        <img id="banner-image" src="" alt="Class Banner" style="width: 100%; height: auto; border-radius: 10px;"/>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+            <p style="font-weight: bold;">Explore: <span id="explore-text" onclick="showBatchDetailsForClass(currentClass)" style="color: var(--primary-color); text-decoration: underline; cursor: pointer;"></span></p>
+            <p id="batch-price" style="color: green; font-weight: bold;"></p>
+            <button style="background-color: red; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.open('https://api.whatsapp.com/send?phone=YOUR_WHATSAPP_NUMBER', '_blank')">Buy now</button>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <p style="font-weight: bold;">Firstly buy batch and enter uniqe code</p>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 10px;">
+            <input type="text" id="unique-code-input" placeholder="Enter Unique Code" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;"/>
+            <button style="background-color: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="verifyCode()">Submit</button>
+        </div>
+        <p id="error-message" style="color: red; margin-top: 10px; display: none;">Invalid code. Please try again.</p>
+    </div>
+</div>
 
-                <div id="class-info-page" class="page">
-                    <button class="back-button" onclick="goBack()"><span class="material-icons">arrow_back</span></button>
-                    <h2 id="class-info-title" class="header-title"></h2>
-                    <div class="banner">
-                        <img id="banner-image" src="" alt="Class Banner" style="width: 100%; height: auto; border-radius: 10px;"/>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                            <p style="font-weight: bold;">Explore: <span id="explore-text"></span></p>
-                            <p style="color: green; font-weight: bold;">₹149/months</p>
-                            <button style="background-color: red; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.open('https://api.whatsapp.com/send?phone=YOUR_WHATSAPP_NUMBER', '_blank')">Buy now</button>
-                        </div>
-                    </div>
-                    <div style="text-align: center; margin-top: 20px;">
-                        <p style="font-weight: bold;">Firstly buy batch and enter uniqe code</p>
-                        <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 10px;">
-                            <input type="text" id="unique-code-input" placeholder="Enter Unique Code" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;"/>
-                            <button style="background-color: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="verifyCode()">Submit</button>
-                        </div>
-                        <p id="error-message" style="color: red; margin-top: 10px; display: none;">Invalid code. Please try again.</p>
-                    </div>
-                </div>
-
-                <div id="live-classes-page" class="page">
+ <div id="live-classes-page" class="page">
                     <button class="back-button" onclick="goBack()"><span class="material-icons">arrow_back</span></button>
                     <h2 class="header-title">Live Classes</h2>
                     <div class="card-list">
@@ -1379,6 +1417,23 @@
                             <span>Dark Mode:</span>
                             <input type="checkbox" id="dark-mode-toggle">
                         </div>
+                        <div class="setting-item">
+    <label>Dark Mode</label>
+    <label class="switch">
+        <input type="checkbox" id="dark-mode-toggle">
+        <span class="slider round"></span>
+    </label>
+</div>
+<div class="setting-item">
+    <button class="setting-btn" onclick="showPage('user-profile-page')">
+        My Profile
+    </button>
+</div>
+<div class="setting-item">
+    <button class="setting-btn" onclick="showPage('test-scoreboard-page')">
+        Test Scoreboard
+    </button>
+</div>
                         <button class="submit-btn" style="background-color: #dc3545; margin-top: 20px;" onclick="logoutUser()">Logout</button>
                     </div>
                     <div class="settings-section">
@@ -1607,9 +1662,14 @@
 
         const chapterLectures = {
             '6th Maths > Chapter 1: Knowing Our Numbers': [
-                { title: 'L-1: Comparing Numbers', id: 'video6maths1' },
+                { title: 'L-1: Comparing Numbers', id: 'MNGfKvHPRJo' },
                 { title: 'L-2: Indian and International System', id: 'video6maths2' },
                 { title: 'L-3: Estimation', id: 'video6maths3' }
+            ],
+            // यहाँ से Chapter 2 का डेटा जोड़ो
+            '6th Maths > Chapter 2: Whole Numbers': [
+                { title: 'L-1: Introduction to Whole Numbers', id: 'VIDEO_ID_3' },
+                { title: 'L-2: Properties of Whole Numbers', id: 'VIDEO_ID_4' },
             ],
             '6th Science > Chapter 1: Food: Where Does It Come From?': [
                 { title: 'L-1: Food and Its Sources', id: 'video6science1' },
@@ -1672,6 +1732,13 @@
                     { q: 'In the International system, how do we write 55,555?', a: 'd', options: { a: '55 thousand 555', b: '555 hundred 55', c: '555 thousand 55', d: '55 thousand, five hundred fifty-five' }}
                 ]
             },
+            // यहाँ से Chapter 2 का डेटा जोड़ो
+            '6th Maths > Chapter 2: Whole Numbers': {
+                questions: [
+                    { q: 'What is the smallest whole number?', a: 'a', options: { a: '0', b: '1', c: '-1', d: 'None' }},
+                    { q: 'Which of the following is not a whole number?', a: 'd', options: { a: '5', b: '25', c: '0', d: '-5' }}
+                ]
+            }, 
             '7th Maths > Chapter 1: Integers': {
                 questions: [
                     { q: 'The sum of two negative integers is:', a: 'b', options: { a: 'a positive integer', b: 'a negative integer', c: '0', d: 'could be either' }},
@@ -1778,6 +1845,11 @@
                 'Explain the difference between Indian and International number systems.',
                 'Write the expanded form of 3,56,87,123.'
             ],
+            // यहाँ से Chapter 2 का डेटा जोड़ो
+            'Chapter 2: Whole Numbers': [
+                'Define Whole Numbers and give 5 examples.',
+                'Explain the commutative property for addition with an example.'
+            ],
             'Chapter 1: Integers': [
                 'What is the difference between natural numbers and integers? Give examples.',
                 'Explain the properties of addition of integers with an example.'
@@ -1834,6 +1906,9 @@
         
         const downloadsData = {
             '6th Maths > Chapter 1: Knowing Our Numbers': [{name: 'Notes', link: '#notes6m1'}, {name: 'DPP-1', link: '#dpp6m1'}],
+            // यहाँ से Chapter 2 का डेटा जोड़ो
+            '6th Maths > Chapter 2: Whole Numbers': [{name: 'Notes', link: '#notes6m1'}, {name: 'DPP-1', link: '#dpp6m1'}
+                ],
             '6th Science > Chapter 1: Food: Where Does It Come From?': [{name: 'Notes', link: '#notes6s1'}, {name: 'DPP-1', link: '#dpp6s1'}],
             '7th Maths > Chapter 1: Integers': [{name: 'Notes', link: '#notes7m1'}, {name: 'DPP-1', link: '#dpp7m1'}],
             '8th Maths > Chapter 1: Rational Numbers': [{name: 'Notes', link: '#notes8m1'}, {name: 'DPP-1', link: '#dpp8m1'}],
@@ -1851,68 +1926,154 @@
 
         let pageHistory = ['login-page'];
 
-let currentClass = '';
+                let currentClass = '';
 
-// यहाँ सभी क्लासेस और उनके यूनिक कोड्स दिए गए हैं
-const classCodes = {
-    '6th': 'drsir',
-    '7th': 'vrsir',
-    '8th': 'krsir',
-    '9th': 'mksir',
-    '10th': 'tksir',
-    '11th JEE': 'nksir',
-    '12th JEE': 'cksir',
-    '11th NEET': 'lksir', // यह मैंने जोड़ा है, आप चाहें तो बदल सकते हैं
-    '12th NEET': 'pksir'  // यह मैंने जोड़ा है, आप चाहें तो बदल सकते हैं
-};
+        // All class information, prices, descriptions, etc.
+        const classInfoData = {
+            '6th': {
+                price: '₹1/month',
+                description: 'A comprehensive course for Class 6th covering all major subjects to build a strong foundation.',
+                features: ['Live Classes', 'Recorded Lectures', 'Daily Practice Problems (DPPs)', 'Weekly Mock Tests', 'Doubt Solving Sessions'],
+                banner: 'https://via.placeholder.com/1600x900.png?text=Class+6th+Batch'
+            },
+            '7th': {
+                price: '₹5/month',
+                description: 'This batch focuses on strengthening concepts for Class 7th students, preparing them for board exams and future competitive exams.',
+                features: ['Live Classes', 'Recorded Lectures', 'DPPs with Video Solutions', 'Monthly Subjective Tests', 'Dedicated Mentorship'],
+                banner: 'https://via.placeholder.com/1600x900.png?text=Class+7th+Batch'
+            },
+            '8th': {
+                price: '₹2/month',
+                description: 'This course is designed to provide a solid understanding of all core subjects for Class 8th students.',
+                features: ['Live Classes', 'Recorded Lectures', 'Daily Practice Problems', 'Weekly Mock Tests', 'Doubt Solving Sessions'],
+                banner: 'https://via.placeholder.com/1600x900.png?text=Class+8th+Batch'
+            },
+            '9th': {
+                price: '₹89/month',
+                description: 'A dedicated preparation batch for Class 9th students, aimed at excelling in board exams and laying the groundwork for competitive exams.',
+                features: ['Comprehensive Syllabus Coverage', 'Full & Part Syllabus Mock Tests', 'Revision & Strategy Sessions', 'One-on-one Mentoring', 'Access to Premium Content'],
+                banner: 'https://via.placeholder.com/1600x900.png?text=Class+9th+Batch'
+            },
+            '10th': {
+                price: '₹69/month',
+                description: 'An integrated program for Class 10th students aspiring for JEE and NEET, covering both school syllabus and entrance exam curriculum.',
+                features: ['Live Classes (Physics, Chemistry, Maths/Biology)', 'Topic-wise Tests', 'Previous Year Questions (PYQs)', 'PDF Notes & Study Material', 'AI-powered Doubt Engine'],
+                banner: 'https://via.placeholder.com/1600x900.png?text=Class+10th+Batch'
+            },
+            '11th JEE': {
+                price: '₹59/month',
+                description: 'An integrated program for Class 11th students aspiring for JEE and NEET, covering both school syllabus and entrance exam curriculum.',
+                features: ['Live Classes (Physics, Chemistry, Maths/Biology)', 'Topic-wise Tests', 'Previous Year Questions (PYQs)', 'PDF Notes & Study Material', 'AI-powered Doubt Engine'],
+                banner: 'https://via.placeholder.com/1600x900.png?text=11th+JEE+Batch'
+            },
+            '12th JEE': {
+                price: '₹49/month',
+                description: 'A dedicated preparation batch for Class 12th students, aimed at excelling in board exams and cracking JEE/NEET with a high rank.',
+                features: ['Comprehensive Syllabus Coverage', 'Full & Part Syllabus Mock Tests', 'Revision & Strategy Sessions', 'One-on-one Mentoring', 'Access to Premium Content'],
+                banner: 'https://via.placeholder.com/1600x900.png?text=12th+JEE+Batch'
+            },
+            '11th NEET': {
+                price: '₹39/month',
+                description: 'An integrated program for Class 11th students aspiring for JEE and NEET, covering both school syllabus and entrance exam curriculum.',
+                features: ['Live Classes (Physics, Chemistry, Maths/Biology)', 'Topic-wise Tests', 'Previous Year Questions (PYQs)', 'PDF Notes & Study Material', 'AI-powered Doubt Engine'],
+                banner: 'https://via.placeholder.com/1600x900.png?text=11th+NEET+Batch'
+            },
+            '12th NEET': {
+                price: '₹79/month',
+                description: 'A dedicated preparation batch for Class 12th students, aimed at excelling in board exams and cracking JEE/NEET with a high rank.',
+                features: ['Comprehensive Syllabus Coverage', 'Full & Part Syllabus Mock Tests', 'Revision & Strategy Sessions', 'One-on-one Mentoring', 'Access to Premium Content'],
+                banner: 'https://via.placeholder.com/1600x900.png?text=12th+NEET+Batch'
+            }
+        };
+                        const specialCodes = {
+            profile: 'rajsir'
+        };
 
-function showClassInfoPage(className) {
-    currentClass = className;
-    const allPages = document.querySelectorAll('.page');
-    allPages.forEach(page => page.classList.remove('active'));
-    
-    document.getElementById('class-info-page').classList.add('active');
-    
-    // Ye sab history mein add karna zaroori hai
-    const currentPageId = 'class-info-page';
-    if (pageHistory[pageHistory.length - 1] !== currentPageId) {
-        history.pushState({ pageId: currentPageId, dynamicParam: className }, '', `#${currentPageId}`);
-        pageHistory.push(currentPageId);
+        let allScores = JSON.parse(localStorage.getItem('allScores')) || [];
+        let allUsers = JSON.parse(localStorage.getItem('allUsers')) || [];
+        
+        const classCodes = {
+            '6th': 'drsir',
+            '7th': 'vrsir',
+            '8th': 'krsir',
+            '9th': 'mksir',
+            '10th': 'tksir',
+            '11th JEE': 'nksir',
+            '12th JEE': 'cksir',
+            '11th NEET': 'lksir', 
+            '12th NEET': 'pksir'  
+        };
+
+        function showClassInfoPage(className) {
+            currentClass = className;
+            const allPages = document.querySelectorAll('.page');
+            allPages.forEach(page => page.classList.remove('active'));
+            
+            document.getElementById('class-info-page').classList.add('active');
+            
+            const currentPageId = 'class-info-page';
+            if (pageHistory[pageHistory.length - 1] !== currentPageId) {
+                history.pushState({ pageId: currentPageId, dynamicParam: className }, '', `#${currentPageId}`);
+                pageHistory.push(currentPageId);
+            }
+
+            document.getElementById('class-info-title').innerText = className;
+            document.getElementById('unique-code-input').value = '';
+            document.getElementById('error-message').style.display = 'none';
+
+            // Set dynamic data based on the class
+            const classData = classInfoData[className];
+            if (classData) {
+                document.getElementById('explore-text').innerText = classData.description;
+                document.getElementById('batch-price').innerText = classData.price;
+                document.getElementById('banner-image').src = classData.banner;
+            }
+        }
+        
+        function showBatchDetailsForClass(className) {
+            const batchDetails = classInfoData[className];
+            if (!batchDetails) {
+                showToast('Batch details not available for this class.');
+                return;
+            }
+
+            document.getElementById('batch-details-title').textContent = className;
+            document.getElementById('batch-details-description').textContent = batchDetails.description;
+            const featuresList = document.getElementById('batch-details-features');
+            featuresList.innerHTML = '';
+            batchDetails.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="material-icons" style="font-size: 1em; color: green; margin-right: 5px;">check_circle</span> ${feature}`;
+                featuresList.appendChild(li);
+            });
+            
+            document.getElementById('batch-details-popup').style.display = 'flex';
+        }
+
+        function verifyCode() {
+            const inputCode = document.getElementById('unique-code-input').value.toLowerCase();
+            const errorMessage = document.getElementById('error-message');
+            
+            const correctCode = classCodes[currentClass];
+
+            if (inputCode === correctCode) {
+                showPage('class-subjects-page', currentClass);
+                errorMessage.style.display = 'none';
+            } else {
+                errorMessage.style.display = 'block';
+            }
+        }
+        
+        function showPage(pageId, dynamicParam = '') {
+    // ...
+    if (pageId === 'class-subjects-page') {
+        // ...
+    } else if (pageId === 'user-profile-page') {
+        // This page initially shows the code input.
+    } else if (pageId === 'test-scoreboard-page') {
+        updateScoreboard();
     }
-
-    document.getElementById('class-info-title').innerText = className;
-    document.getElementById('unique-code-input').value = '';
-    document.getElementById('error-message').style.display = 'none';
-
-    const exploreText = document.getElementById('explore-text');
-    const bannerImage = document.getElementById('banner-image');
-    
-    if (className.includes('JEE')) {
-        exploreText.innerText = 'JEE Main & Advanced, Board Exams preparation';
-        bannerImage.src = 'https://via.placeholder.com/1600x900.png?text=JEE+Batch+Banner';
-    } else if (className.includes('NEET')) {
-        exploreText.innerText = 'NEET & Board Exams preparation';
-        bannerImage.src = 'https://via.placeholder.com/1600x900.png?text=NEET+Batch+Banner';
-    } else {
-        exploreText.innerText = `All subjects for ${className}`;
-        bannerImage.src = 'https://via.placeholder.com/1600x900.png?text=Class+' + className + '+Batch+Banner';
-    }
-}
-
-function verifyCode() {
-    const inputCode = document.getElementById('unique-code-input').value.toLowerCase();
-    const errorMessage = document.getElementById('error-message');
-    
-    // यहाँ हम currentClass के हिसाब से सही कोड चेक कर रहे हैं
-    const correctCode = classCodes[currentClass];
-
-    if (inputCode === correctCode) {
-        // Yahan se showPage function ko call kiya jaa raha hai, jisme tumhara poora logic hai
-        showPage('class-subjects-page', currentClass);
-        errorMessage.style.display = 'none';
-    } else {
-        errorMessage.style.display = 'block';
-    }
+    // ...
 }
         
         function showPage(pageId, dynamicParam = '') {
@@ -2284,6 +2445,16 @@ function verifyCode() {
             }
         }
 
+                function loginUser() {
+            // ... code for login
+            if (foundUser) {
+                // ... code for successful login
+                userData = foundUser;
+                addUser(userData); // यह लाइन जोड़ें
+                // ...
+            }
+        }
+
         function handleLogin(e) {
             e.preventDefault();
             const name = document.getElementById('login-name').value;
@@ -2317,7 +2488,130 @@ function verifyCode() {
             checkLoginStatus();
             showToast('Logged out successfully.');
         }
+                function verifyRajsirCode() {
+            const inputCode = document.getElementById('profile-code-input').value.toLowerCase();
+            const errorMessage = document.getElementById('profile-error-message');
+            const userDetailsSection = document.getElementById('user-details');
+            const profileCodeSection = document.getElementById('profile-code-section');
 
+            if (inputCode === specialCodes.profile) {
+                profileCodeSection.style.display = 'none';
+                userDetailsSection.style.display = 'block';
+                errorMessage.style.display = 'none';
+                
+                // Show user data from localStorage
+                document.getElementById('user-profile-name').textContent = userData.name;
+                document.getElementById('user-profile-class').textContent = userData.class;
+                document.getElementById('user-profile-mobile').textContent = userData.mobile;
+
+            } else {
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        function addScoreToScoreboard(scoreData) {
+            allScores.push(scoreData);
+            localStorage.setItem('allScores', JSON.stringify(allScores));
+        }
+
+        function updateScoreboard() {
+            const scoreboardList = document.getElementById('scoreboard-list');
+            scoreboardList.innerHTML = '';
+            
+            const sortedScores = [...allScores].sort((a, b) => b.score - a.score);
+
+            if (sortedScores.length === 0) {
+                scoreboardList.innerHTML = '<p style="text-align: center; margin-top: 20px;">No scores recorded yet.</p>';
+                return;
+            }
+
+            sortedScores.forEach(score => {
+                const scoreItem = document.createElement('div');
+                scoreItem.classList.add('scoreboard-item');
+                scoreItem.innerHTML = `
+                    <span class="score-name">${score.name}</span>
+                    <span class="score-class">${score.class}</span>
+                    <span class="score-points">${score.score} / ${score.totalQuestions}</span>
+                `;
+                scoreboardList.appendChild(scoreItem);
+            });
+        }
+        
+                function renderAllUsers() {
+            const userDetailsContainer = document.getElementById('user-details');
+            userDetailsContainer.innerHTML = ''; // Purana data saaf karen
+
+            if (allUsers.length === 0) {
+                userDetailsContainer.innerHTML = '<p style="text-align: center; color: #888;">No users have logged in yet.</p>';
+                return;
+            }
+
+            allUsers.forEach(user => {
+                const userCard = document.createElement('div');
+                userCard.classList.add('user-card');
+                userCard.innerHTML = `
+                    <p><strong>Name:</strong> ${user.name}</p>
+                    <p><strong>Class:</strong> ${user.class}</p>
+                    <p><strong>Mobile:</strong> ${user.mobile}</p>
+                `;
+                userDetailsContainer.appendChild(userCard);
+            });
+        }
+
+        function addUser(userData) {
+            const userExists = allUsers.some(user => user.mobile === userData.mobile);
+            if (!userExists) {
+                allUsers.push(userData);
+                localStorage.setItem('allUsers', JSON.stringify(allUsers));
+            }
+        }
+
+        function verifyRajsirCode() {
+            const inputCode = document.getElementById('profile-code-input').value.toLowerCase();
+            const errorMessage = document.getElementById('profile-error-message');
+            const userDetailsSection = document.getElementById('user-details');
+            const profileCodeSection = document.getElementById('profile-code-section');
+
+            if (inputCode === specialCodes.profile) {
+                profileCodeSection.style.display = 'none';
+                userDetailsSection.style.display = 'block';
+                errorMessage.style.display = 'none';
+                
+                renderAllUsers();
+
+            } else {
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        function addScoreToScoreboard(scoreData) {
+            allScores.push(scoreData);
+            localStorage.setItem('allScores', JSON.stringify(allScores));
+        }
+
+        function updateScoreboard() {
+            const scoreboardList = document.getElementById('scoreboard-list');
+            scoreboardList.innerHTML = '';
+            
+            const sortedScores = [...allScores].sort((a, b) => b.score - a.score);
+
+            if (sortedScores.length === 0) {
+                scoreboardList.innerHTML = '<p style="text-align: center; margin-top: 20px;">No scores recorded yet.</p>';
+                return;
+            }
+
+            sortedScores.forEach(score => {
+                const scoreItem = document.createElement('div');
+                scoreItem.classList.add('scoreboard-item');
+                scoreItem.innerHTML = `
+                    <span class="score-name">${score.name}</span>
+                    <span class="score-class">${score.class}</span>
+                    <span class="score-points">${score.score} / ${score.totalQuestions}</span>
+                `;
+                scoreboardList.appendChild(scoreItem);
+            });
+        }
+        
         // Doubt page now opens the AI Tutor
         function handleDoubtSubmit(e) {
             e.preventDefault();
