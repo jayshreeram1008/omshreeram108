@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -966,16 +966,6 @@
                 <a href="#" onclick="showPage('doubt-page'); toggleNav();"><span class="material-icons">help_outline</span> Ask a Doubt</a>
                 <a href="#"><span class="material-icons">send</span> Telegram Channel</a>
                 <a href="#"><span class="material-icons">chat</span> WhatsApp Support</a>
-                    <a href="javascript:void(0)" onclick="showPage('user-profile-page')">
-        <span class="material-icons">person</span> My Profile
-    </a>
-    <a href="javascript:void(0)" onclick="showPage('test-scoreboard-page')">
-        <span class="material-icons">leaderboard</span> Test Scoreboard
-    </a>
-    <hr>
-    <a href="javascript:void(0)" onclick="logoutUser()">
-        <span class="material-icons">logout</span> Logout
-    </a>
                 <a href="#" onclick="showPage('settings-page'); toggleNav();"><span class="material-icons">settings</span> Settings</a>
             </div>
 
@@ -1070,35 +1060,6 @@
                     </div>
                 </div>
                 
-                <<div id="user-profile-page" class="page">
-    <button class="back-button" onclick="goBack()"><span class="material-icons">arrow_back</span></button>
-    <h2 class="header-title">All User Details</h2>
-    <div id="profile-code-section" class="profile-section">
-        <p>Please enter the unique code to view user details.</p>
-        <div class="input-container">
-            <input type="password" id="profile-code-input" placeholder="Enter Unique Code" />
-            <button class="submit-btn" onclick="verifyRajsirCode()">Submit</button>
-        </div>
-        <p id="profile-error-message" style="color: red; display: none;">Invalid code.</p>
-    </div>
-    <div id="user-details" class="profile-details-container" style="display: none;">
-        </div>
-</div>
-
-<div id="test-scoreboard-page" class="page">
-    <button class="back-button" onclick="goBack()"><span class="material-icons">arrow_back</span></button>
-    <h2 class="header-title">Student Test Scores</h2>
-    <div class="scoreboard-container">
-        <div class="scoreboard-header">
-            <span class="score-name">Name</span>
-            <span class="score-class">Class</span>
-            <span class="score-points">Score</span>
-        </div>
-        <div id="scoreboard-list" class="scoreboard-list">
-            </div>
-    </div>
-</div>
-                
                 <div id="pv-batches-page" class="page">
                     <button class="back-button" onclick="goBack()"><span class="material-icons">arrow_back</span></button>
                     <h2 class="header-title">PV Batches</h2>
@@ -1115,7 +1076,8 @@
                         <ul id="batch-details-features"></ul>
                     </div>
                 </div>
-                               <div id="all-classes-page" class="page">
+
+                <                <<div id="all-classes-page" class="page">
     <button class="back-button" onclick="goBack()"><span class="material-icons">arrow_back</span></button>
     <h2 class="header-title">All Classes</h2>
     <div class="card-list">
@@ -1417,23 +1379,6 @@
                             <span>Dark Mode:</span>
                             <input type="checkbox" id="dark-mode-toggle">
                         </div>
-                        <div class="setting-item">
-    <label>Dark Mode</label>
-    <label class="switch">
-        <input type="checkbox" id="dark-mode-toggle">
-        <span class="slider round"></span>
-    </label>
-</div>
-<div class="setting-item">
-    <button class="setting-btn" onclick="showPage('user-profile-page')">
-        My Profile
-    </button>
-</div>
-<div class="setting-item">
-    <button class="setting-btn" onclick="showPage('test-scoreboard-page')">
-        Test Scoreboard
-    </button>
-</div>
                         <button class="submit-btn" style="background-color: #dc3545; margin-top: 20px;" onclick="logoutUser()">Logout</button>
                     </div>
                     <div class="settings-section">
@@ -1985,13 +1930,7 @@
                 banner: 'https://via.placeholder.com/1600x900.png?text=12th+NEET+Batch'
             }
         };
-                        const specialCodes = {
-            profile: 'rajsir'
-        };
 
-        let allScores = JSON.parse(localStorage.getItem('allScores')) || [];
-        let allUsers = JSON.parse(localStorage.getItem('allUsers')) || [];
-        
         const classCodes = {
             '6th': 'drsir',
             '7th': 'vrsir',
@@ -2063,18 +2002,6 @@
                 errorMessage.style.display = 'block';
             }
         }
-        
-        function showPage(pageId, dynamicParam = '') {
-    // ...
-    if (pageId === 'class-subjects-page') {
-        // ...
-    } else if (pageId === 'user-profile-page') {
-        // This page initially shows the code input.
-    } else if (pageId === 'test-scoreboard-page') {
-        updateScoreboard();
-    }
-    // ...
-}
         
         function showPage(pageId, dynamicParam = '') {
             if (!loggedIn) {
@@ -2445,16 +2372,6 @@
             }
         }
 
-                function loginUser() {
-            // ... code for login
-            if (foundUser) {
-                // ... code for successful login
-                userData = foundUser;
-                addUser(userData); // यह लाइन जोड़ें
-                // ...
-            }
-        }
-
         function handleLogin(e) {
             e.preventDefault();
             const name = document.getElementById('login-name').value;
@@ -2488,130 +2405,7 @@
             checkLoginStatus();
             showToast('Logged out successfully.');
         }
-                function verifyRajsirCode() {
-            const inputCode = document.getElementById('profile-code-input').value.toLowerCase();
-            const errorMessage = document.getElementById('profile-error-message');
-            const userDetailsSection = document.getElementById('user-details');
-            const profileCodeSection = document.getElementById('profile-code-section');
 
-            if (inputCode === specialCodes.profile) {
-                profileCodeSection.style.display = 'none';
-                userDetailsSection.style.display = 'block';
-                errorMessage.style.display = 'none';
-                
-                // Show user data from localStorage
-                document.getElementById('user-profile-name').textContent = userData.name;
-                document.getElementById('user-profile-class').textContent = userData.class;
-                document.getElementById('user-profile-mobile').textContent = userData.mobile;
-
-            } else {
-                errorMessage.style.display = 'block';
-            }
-        }
-
-        function addScoreToScoreboard(scoreData) {
-            allScores.push(scoreData);
-            localStorage.setItem('allScores', JSON.stringify(allScores));
-        }
-
-        function updateScoreboard() {
-            const scoreboardList = document.getElementById('scoreboard-list');
-            scoreboardList.innerHTML = '';
-            
-            const sortedScores = [...allScores].sort((a, b) => b.score - a.score);
-
-            if (sortedScores.length === 0) {
-                scoreboardList.innerHTML = '<p style="text-align: center; margin-top: 20px;">No scores recorded yet.</p>';
-                return;
-            }
-
-            sortedScores.forEach(score => {
-                const scoreItem = document.createElement('div');
-                scoreItem.classList.add('scoreboard-item');
-                scoreItem.innerHTML = `
-                    <span class="score-name">${score.name}</span>
-                    <span class="score-class">${score.class}</span>
-                    <span class="score-points">${score.score} / ${score.totalQuestions}</span>
-                `;
-                scoreboardList.appendChild(scoreItem);
-            });
-        }
-        
-                function renderAllUsers() {
-            const userDetailsContainer = document.getElementById('user-details');
-            userDetailsContainer.innerHTML = ''; // Purana data saaf karen
-
-            if (allUsers.length === 0) {
-                userDetailsContainer.innerHTML = '<p style="text-align: center; color: #888;">No users have logged in yet.</p>';
-                return;
-            }
-
-            allUsers.forEach(user => {
-                const userCard = document.createElement('div');
-                userCard.classList.add('user-card');
-                userCard.innerHTML = `
-                    <p><strong>Name:</strong> ${user.name}</p>
-                    <p><strong>Class:</strong> ${user.class}</p>
-                    <p><strong>Mobile:</strong> ${user.mobile}</p>
-                `;
-                userDetailsContainer.appendChild(userCard);
-            });
-        }
-
-        function addUser(userData) {
-            const userExists = allUsers.some(user => user.mobile === userData.mobile);
-            if (!userExists) {
-                allUsers.push(userData);
-                localStorage.setItem('allUsers', JSON.stringify(allUsers));
-            }
-        }
-
-        function verifyRajsirCode() {
-            const inputCode = document.getElementById('profile-code-input').value.toLowerCase();
-            const errorMessage = document.getElementById('profile-error-message');
-            const userDetailsSection = document.getElementById('user-details');
-            const profileCodeSection = document.getElementById('profile-code-section');
-
-            if (inputCode === specialCodes.profile) {
-                profileCodeSection.style.display = 'none';
-                userDetailsSection.style.display = 'block';
-                errorMessage.style.display = 'none';
-                
-                renderAllUsers();
-
-            } else {
-                errorMessage.style.display = 'block';
-            }
-        }
-
-        function addScoreToScoreboard(scoreData) {
-            allScores.push(scoreData);
-            localStorage.setItem('allScores', JSON.stringify(allScores));
-        }
-
-        function updateScoreboard() {
-            const scoreboardList = document.getElementById('scoreboard-list');
-            scoreboardList.innerHTML = '';
-            
-            const sortedScores = [...allScores].sort((a, b) => b.score - a.score);
-
-            if (sortedScores.length === 0) {
-                scoreboardList.innerHTML = '<p style="text-align: center; margin-top: 20px;">No scores recorded yet.</p>';
-                return;
-            }
-
-            sortedScores.forEach(score => {
-                const scoreItem = document.createElement('div');
-                scoreItem.classList.add('scoreboard-item');
-                scoreItem.innerHTML = `
-                    <span class="score-name">${score.name}</span>
-                    <span class="score-class">${score.class}</span>
-                    <span class="score-points">${score.score} / ${score.totalQuestions}</span>
-                `;
-                scoreboardList.appendChild(scoreItem);
-            });
-        }
-        
         // Doubt page now opens the AI Tutor
         function handleDoubtSubmit(e) {
             e.preventDefault();
