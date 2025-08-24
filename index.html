@@ -847,6 +847,150 @@
             background-color: #0056b3;
         }
 
+ /* New Styles for comments/chat */
+.comment-chat-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--gemini-chat-bg);
+    z-index: 101;
+    display: none;
+    flex-direction: column;
+    transition: all 0.3s ease-in-out;
+    transform: translateY(100%);
+    border: none;
+}
+
+.comment-chat-window.open {
+    display: flex;
+    transform: translateY(0);
+}
+
+.comment-chat-window .chat-header {
+    background-color: var(--card-background);
+    border-bottom: 1px solid #ccc;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-light);
+}
+
+.comment-chat-window .chat-header .material-icons {
+    font-size: 1.8em;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+.comment-chat-window .chat-messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.comment-chat-window .chat-input-container {
+    padding: 15px 20px;
+    background-color: var(--card-background);
+    border-top: 1px solid #ccc;
+    display: flex;
+    gap: 10px;
+}
+
+.comment-chat-window .chat-input-container input {
+    flex-grow: 1;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    outline: none;
+}
+
+.comment-chat-window .chat-input-container button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.chat-message {
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.chat-message.self {
+    background-color: #dcf8c6;
+    margin-left: auto;
+}
+
+.chat-message .meta {
+    font-size: 0.7em;
+    color: #888;
+    text-align: right;
+    margin-top: 5px;
+}
+
+/* Floating Action Button */
+.fab-gemini {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #388e3c;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 99;
+    transition: transform 0.2s ease-in-out;
+}
+
+.fab-gemini:hover {
+    transform: scale(1.05);
+}
+
+.fab-gemini .gemini-icon {
+    font-size: 30px;
+    color: white;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Dark mode adjustments for chat section */
+body.dark-mode .comment-chat-window .chat-header {
+    border-color: #333;
+}
+
+body.dark-mode .comment-chat-window .chat-input-container {
+    border-color: #333;
+}
+
+body.dark-mode .comment-chat-window .chat-input-container input {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
         /* Batch Details Pop-up */
         .batch-details-popup {
             position: fixed;
@@ -964,6 +1108,10 @@
                 <a href="#" onclick="showPage('tests-page'); toggleNav();"><span class="material-icons">assignment</span> Tests & Quizzes</a>
                 <a href="#" onclick="showPage('downloads-page'); toggleNav();"><span class="material-icons">cloud_download</span> Downloads</a>
                 <a href="#" onclick="showPage('doubt-page'); toggleNav();"><span class="material-icons">help_outline</span> Ask a Doubt</a>
+                <a onclick="showAllUsers()">
+        <span class="material-icons">people_alt</span>
+        <span class="nav-text">All User Data</span>
+    </a>
                 <a href="#"><span class="material-icons">send</span> Telegram Channel</a>
                 <a href="#"><span class="material-icons">chat</span> WhatsApp Support</a>
                 <a href="#" onclick="showPage('settings-page'); toggleNav();"><span class="material-icons">settings</span> Settings</a>
@@ -1494,6 +1642,39 @@
             </div>
         </div>
         
+        <div id="all-users-page" class="page">
+    <div class="header">
+        <span class="material-icons back-btn" onclick="goBack()">arrow_back</span>
+        <h2>All User Data</h2>
+    </div>
+    <div class="content" style="padding-top: 20px;">
+        <div class="input-group">
+            <input type="password" id="admin-code-input" placeholder="Enter Admin Code">
+            <button class="submit-btn" onclick="verifyAdminCode()">Unlock</button>
+        </div>
+        <div id="all-users-list" class="card-container">
+            </div>
+    </div>
+</div>
+        
+        <div class="fab-gemini" onclick="openCommentChat()">
+    <span class="material-icons gemini-icon">chat</span>
+</div>
+
+<div id="comment-chat-window" class="comment-chat-window">
+    <div class="chat-header">
+        <span class="material-icons" onclick="closeCommentChat()">arrow_back</span>
+        <h3>Community Chat</h3>
+        <span class="material-icons" onclick="clearCommentChat()">delete_forever</span>
+    </div>
+    <div id="chat-messages" class="chat-messages">
+        </div>
+    <div class="chat-input-container">
+        <input type="text" id="comment-input" placeholder="Type a message...">
+        <button onclick="sendComment()"><span class="material-icons">send</span></button>
+    </div>
+</div>
+        
         <div id="welcome-popup" class="welcome-popup">
             <h3 id="welcome-popup-title">Welcome to Pracheen Vigyaan!</h3>
             <p>Join our **9th-12th** ₹149 special Batches!</p>
@@ -1942,6 +2123,151 @@
             '11th NEET': 'lksir', 
             '12th NEET': 'pksir'  
         };
+
+ // Global variable to store all user data
+let allUsers = JSON.parse(localStorage.getItem('allUsers')) || [];
+
+// Function to save new user data to localStorage
+function saveUserData(userData) {
+    // Find if a user with the same mobile number already exists
+    const existingUserIndex = allUsers.findIndex(u => u.mobile === userData.mobile);
+    if (existingUserIndex > -1) {
+        // If yes, update their data
+        allUsers[existingUserIndex] = userData;
+    } else {
+        // If not, add the new user to the array
+        allUsers.push(userData);
+    }
+    // Save the entire updated array back to localStorage
+    localStorage.setItem('allUsers', JSON.stringify(allUsers));
+}
+
+// Function to handle the login process
+function handleLogin(e) {
+    e.preventDefault();
+    const name = document.getElementById('login-name').value;
+    const mobile = document.getElementById('login-mobile').value;
+    const selectedClass = document.getElementById('login-class').value;
+
+    userData = {
+        name: name,
+        mobile: mobile,
+        class: selectedClass
+    };
+    localStorage.setItem('userData', JSON.stringify(userData));
+    
+    // Call the function to save the new user's data
+    saveUserData(userData);
+    
+    loggedIn = true;
+    
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('main-app-container').style.display = 'block';
+    showPage('home-page');
+    updateProfile();
+    showToast('Login successful!');
+}
+
+// Function to show the All Users page and handle admin access
+function showAllUsers() {
+    showPage('all-users-page');
+    document.getElementById('all-users-list').innerHTML = '';
+    document.getElementById('admin-code-input').value = '';
+}
+
+// Function to verify the code and display the user list
+function verifyAdminCode() {
+    const inputCode = document.getElementById('admin-code-input').value;
+    const usersList = document.getElementById('all-users-list');
+
+    if (inputCode === 'sirdr') {
+        usersList.innerHTML = '';
+        if (allUsers.length === 0) {
+            usersList.innerHTML = '<p>No user data found.</p>';
+        } else {
+            allUsers.forEach(user => {
+                const userCard = document.createElement('div');
+                userCard.classList.add('card');
+                userCard.innerHTML = `
+                    <h3>${user.name}</h3>
+                    <p>Mobile: ${user.mobile}</p>
+                    <p>Class: ${user.class}</p>
+                `;
+                usersList.appendChild(userCard);
+            });
+        }
+    } else {
+        showToast('Incorrect code. Access denied.');
+        usersList.innerHTML = '';
+    }
+}
+
+ // Start of new code for comment section
+function openCommentChat() {
+    document.getElementById('comment-chat-window').classList.add('open');
+}
+
+function closeCommentChat() {
+    document.getElementById('comment-chat-window').classList.remove('open');
+}
+
+function sendComment() {
+    const input = document.getElementById('comment-input');
+    const message = input.value.trim();
+    if (message) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const name = currentUser ? currentUser.name : 'Guest';
+        const comments = JSON.parse(localStorage.getItem('commentHistory')) || [];
+        const newComment = { text: message, user: name, timestamp: new Date().toLocaleString() };
+        comments.push(newComment);
+        localStorage.setItem('commentHistory', JSON.stringify(comments));
+        input.value = '';
+        loadComments();
+    }
+}
+
+function loadComments() {
+    const chatMessagesContainer = document.getElementById('chat-messages');
+    chatMessagesContainer.innerHTML = '';
+    const comments = JSON.parse(localStorage.getItem('commentHistory')) || [];
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    comments.forEach(comment => {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('chat-message');
+        if (currentUser && currentUser.name === comment.user) {
+            messageDiv.classList.add('self');
+        }
+        messageDiv.innerHTML = `
+            <p>${comment.text}</p>
+            <div class="meta">${comment.user} at ${comment.timestamp}</div>
+        `;
+        chatMessagesContainer.appendChild(messageDiv);
+    });
+    // Scroll to the bottom of the chat window to show the latest message
+    chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+}
+
+function clearCommentChat() {
+    const passcode = prompt("Please enter the unique code to clear the chat:");
+    // The passcode is set as "ramom" in the original code, but you can change it for security
+    if (passcode === "ramom") {
+        localStorage.removeItem('commentHistory');
+        loadComments();
+        alert("Chat cleared successfully!");
+    } else {
+        alert("Incorrect unique code!");
+    }
+}
+// End of new code for comment section
+
+// Add this to your document.addEventListener('DOMContentLoaded', ...) block
+document.addEventListener('DOMContentLoaded', () => {
+    // ... other code
+    // Load comments on page load
+    loadComments();
+    // ... other code
+});
 
         function showClassInfoPage(className) {
             currentClass = className;
