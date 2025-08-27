@@ -1113,7 +1113,7 @@ body.dark-mode .comment-chat-window .chat-input-container input {
         <span class="nav-text">All User Data</span>
     </a>
                 <a href="#"><span class="material-icons">send</span> Telegram Channel</a>
-                <a href="#"><span class="material-icons">chat</span> WhatsApp Support</a>
+                <a href="https://t.me/PracheenVigyaan"><span class="material-icons">chat</span> WhatsApp Support</a>
                 <a href="#" onclick="showPage('settings-page'); toggleNav();"><span class="material-icons">settings</span> Settings</a>
             </div>
 
@@ -1280,7 +1280,7 @@ body.dark-mode .comment-chat-window .chat-input-container input {
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
             <p style="font-weight: bold;">Explore: <span id="explore-text" onclick="showBatchDetailsForClass(currentClass)" style="color: var(--primary-color); text-decoration: underline; cursor: pointer;"></span></p>
             <p id="batch-price" style="color: green; font-weight: bold;"></p>
-            <button style="background-color: red; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.open('https://api.whatsapp.com/send?phone=YOUR_WHATSAPP_NUMBER', '_blank')">Buy now</button>
+            <button style="background-color: red; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.open('https://api.whatsapp.com/send?phone=7017811269', '_blank')">Buy now</button>
         </div>
     </div>
     <div style="text-align: center; margin-top: 20px;">
@@ -1701,36 +1701,45 @@ body.dark-mode .comment-chat-window .chat-input-container input {
             {
                 id: 'batch1',
                 name: 'Class 10th Foundation Batch',
-                image: 'https://via.placeholder.com/640x360.png?text=10th+Batch',
-                price: '₹149/month',
-                buyLink: '#buynow-10th',
+                image: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286460/InShot_20250827_143319347_qxkyua.jpg',
+                price: '₹49/month',
+                buyLink: 'https://api.whatsapp.com/send?phone=7017811269',
                 description: 'A comprehensive course for Class 10th covering all major subjects to build a strong foundation for future competitive exams.',
-                features: ['Live Classes', 'Recorded Lectures', 'Daily Practice Problems (DPPs)', 'Weekly Mock Tests', 'Doubt Solving Sessions']
+                features: ['Live Classes', 'Recorded Lectures', 'Daily Practice Problems (DPPs)', 'Weekly Mock Tests', 'Doubt Solving Sessions', 'AI Doubt Support']
             },
             {
                 id: 'batch2',
-                name: 'Class 9th Foundation Batch',
-                image: 'https://via.placeholder.com/640x360.png?text=9th+Batch',
-                price: '₹149/month',
-                buyLink: '#buynow-9th',
-                description: 'This batch focuses on strengthening concepts for Class 9th students, preparing them for board exams and future competitive exam preparation.',
+                name: 'Class 8th Foundation Batch',
+                image: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756287401/InShot_20250827_150529483_lxlgzh.jpg',
+                price: '₹19/month',
+                buyLink: 'https://api.whatsapp.com/send?phone=7017811269',
+                description: 'This batch focuses on strengthening concepts for Class 8th students, preparing them for board exams and future competitive exam preparation.',
                 features: ['Live Classes', 'Recorded Lectures', 'DPPs with Video Solutions', 'Monthly Subjective Tests', 'Dedicated Mentorship']
             },
             {
                 id: 'batch3',
+                name: 'Class 9th Foundation Batch',
+                image: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286503/InShot_20250827_143546226_ogco0x.jpg',
+                price: '₹49/month',
+                buyLink: 'https://api.whatsapp.com/send?phone=7017811269',
+                description: 'This batch focuses on strengthening concepts for Class 9th students, preparing them for board exams and future competitive exam preparation.',
+                features: ['Live Classes', 'Recorded Lectures', 'DPPs with Video Solutions', 'Monthly Subjective Tests', 'Dedicated Mentorship']
+            },
+            {
+                id: 'batch4',
                 name: '11th JEE/NEET Batch',
-                image: 'https://via.placeholder.com/640x360.png?text=11th+JEE%2FNEET+Batch',
-                price: '₹229/month',
-                buyLink: '#buynow-11th',
+                image: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286570/InShot_20250827_143712057_aqmktw.jpg',
+                price: '₹59/month',
+                buyLink: 'https://api.whatsapp.com/send?phone=7017811269',
                 description: 'An integrated program for Class 11th students aspiring for JEE and NEET, covering both school syllabus and entrance exam curriculum.',
                 features: ['Live Classes (Physics, Chemistry, Maths/Biology)', 'Topic-wise Tests', 'Previous Year Questions (PYQs)', 'PDF Notes & Study Material', 'AI-powered Doubt Engine']
             },
             {
-                id: 'batch4',
+                id: 'batch5',
                 name: '12th JEE/NEET Batch',
-                image: 'https://via.placeholder.com/640x360.png?text=12th+JEE%2FNEET+Batch',
-                price: '₹229/month',
-                buyLink: '#buynow-12th',
+                image: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286615/InShot_20250827_143738823_ev3abr.jpg',
+                price: '₹59/month',
+                buyLink: 'https://api.whatsapp.com/send?phone=7017811269',
                 description: 'A dedicated preparation batch for Class 12th students, aimed at excelling in board exams and cracking JEE/NEET with a high rank.',
                 features: ['Comprehensive Syllabus Coverage', 'Full & Part Syllabus Mock Tests', 'Revision & Strategy Sessions', 'One-on-one Mentoring', 'Access to Premium Content']
             }
@@ -2057,71 +2066,71 @@ body.dark-mode .comment-chat-window .chat-input-container input {
         // All class information, prices, descriptions, etc.
         const classInfoData = {
             '6th': {
-                price: '₹1/month',
-                description: 'A comprehensive course for Class 6th covering all major subjects to build a strong foundation.',
+                price: '₹19/month',
+                description: 'Explore',
                 features: ['Live Classes', 'Recorded Lectures', 'Daily Practice Problems (DPPs)', 'Weekly Mock Tests', 'Doubt Solving Sessions'],
-                banner: 'https://via.placeholder.com/1600x900.png?text=Class+6th+Batch'
+                banner: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286242/InShot_20250827_142708262_munbbt.jpg'
             },
             '7th': {
-                price: '₹5/month',
-                description: 'This batch focuses on strengthening concepts for Class 7th students, preparing them for board exams and future competitive exams.',
+                price: '₹19/month',
+                description: 'Explore',
                 features: ['Live Classes', 'Recorded Lectures', 'DPPs with Video Solutions', 'Monthly Subjective Tests', 'Dedicated Mentorship'],
-                banner: 'https://via.placeholder.com/1600x900.png?text=Class+7th+Batch'
+                banner: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286242/InShot_20250827_142708262_munbbt.jpg'
             },
             '8th': {
-                price: '₹2/month',
-                description: 'This course is designed to provide a solid understanding of all core subjects for Class 8th students.',
+                price: '₹19/month',
+                description: 'Explore',
                 features: ['Live Classes', 'Recorded Lectures', 'Daily Practice Problems', 'Weekly Mock Tests', 'Doubt Solving Sessions'],
-                banner: 'https://via.placeholder.com/1600x900.png?text=Class+8th+Batch'
+                banner: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286242/InShot_20250827_142708262_munbbt.jpg'
             },
             '9th': {
-                price: '₹89/month',
-                description: 'A dedicated preparation batch for Class 9th students, aimed at excelling in board exams and laying the groundwork for competitive exams.',
+                price: '₹29/month',
+                description: 'Explore',
                 features: ['Comprehensive Syllabus Coverage', 'Full & Part Syllabus Mock Tests', 'Revision & Strategy Sessions', 'One-on-one Mentoring', 'Access to Premium Content'],
-                banner: 'https://via.placeholder.com/1600x900.png?text=Class+9th+Batch'
+                banner: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286242/InShot_20250827_142708262_munbbt.jpg'
             },
             '10th': {
-                price: '₹69/month',
-                description: 'An integrated program for Class 10th students aspiring for JEE and NEET, covering both school syllabus and entrance exam curriculum.',
+                price: '₹29/month',
+                description: 'Explore',
                 features: ['Live Classes (Physics, Chemistry, Maths/Biology)', 'Topic-wise Tests', 'Previous Year Questions (PYQs)', 'PDF Notes & Study Material', 'AI-powered Doubt Engine'],
-                banner: 'https://via.placeholder.com/1600x900.png?text=Class+10th+Batch'
+                banner: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286242/InShot_20250827_142708262_munbbt.jpg'
             },
             '11th JEE': {
-                price: '₹59/month',
-                description: 'An integrated program for Class 11th students aspiring for JEE and NEET, covering both school syllabus and entrance exam curriculum.',
+                price: '₹49/month',
+                description: 'Explore',
                 features: ['Live Classes (Physics, Chemistry, Maths/Biology)', 'Topic-wise Tests', 'Previous Year Questions (PYQs)', 'PDF Notes & Study Material', 'AI-powered Doubt Engine'],
-                banner: 'https://via.placeholder.com/1600x900.png?text=11th+JEE+Batch'
+                banner: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286242/InShot_20250827_142708262_munbbt.jpg'
             },
             '12th JEE': {
-                price: '₹49/month',
-                description: 'A dedicated preparation batch for Class 12th students, aimed at excelling in board exams and cracking JEE/NEET with a high rank.',
+                price: '₹69/month',
+                description: 'Explore',
                 features: ['Comprehensive Syllabus Coverage', 'Full & Part Syllabus Mock Tests', 'Revision & Strategy Sessions', 'One-on-one Mentoring', 'Access to Premium Content'],
-                banner: 'https://via.placeholder.com/1600x900.png?text=12th+JEE+Batch'
+                banner: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286242/InShot_20250827_142708262_munbbt.jpg'
             },
             '11th NEET': {
-                price: '₹39/month',
-                description: 'An integrated program for Class 11th students aspiring for JEE and NEET, covering both school syllabus and entrance exam curriculum.',
+                price: '₹49/month',
+                description: 'Explore',
                 features: ['Live Classes (Physics, Chemistry, Maths/Biology)', 'Topic-wise Tests', 'Previous Year Questions (PYQs)', 'PDF Notes & Study Material', 'AI-powered Doubt Engine'],
-                banner: 'https://via.placeholder.com/1600x900.png?text=11th+NEET+Batch'
+                banner: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286242/InShot_20250827_142708262_munbbt.jpg'
             },
             '12th NEET': {
-                price: '₹79/month',
-                description: 'A dedicated preparation batch for Class 12th students, aimed at excelling in board exams and cracking JEE/NEET with a high rank.',
+                price: '₹69/month',
+                description: 'Explore',
                 features: ['Comprehensive Syllabus Coverage', 'Full & Part Syllabus Mock Tests', 'Revision & Strategy Sessions', 'One-on-one Mentoring', 'Access to Premium Content'],
-                banner: 'https://via.placeholder.com/1600x900.png?text=12th+NEET+Batch'
+                banner: 'https://res.cloudinary.com/dratpppk4/image/upload/v1756286242/InShot_20250827_142708262_munbbt.jpg'
             }
         };
 
         const classCodes = {
             '6th': 'drsir',
-            '7th': 'vrsir',
+            '7th': 'vrdr',
             '8th': 'krsir',
             '9th': 'mksir',
             '10th': 'tksir',
-            '11th JEE': 'nksir',
-            '12th JEE': 'cksir',
-            '11th NEET': 'lksir', 
-            '12th NEET': 'pksir'  
+            '11th JEE': 'nkpksir',
+            '12th JEE': 'ckrksir',
+            '11th NEET': 'lkjksir', 
+            '12th NEET': 'pkmksir'  
         };
 
  // Global variable to store all user data
@@ -2447,7 +2456,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="batch-card-content">
                         <h3>${batch.name}</h3>
                         <div class="batch-actions">
-                            <button class="explore-btn" onclick="showBatchDetails('${batch.id}')">Explore</button>
+                            <button class="." onclick="showBatchDetails('${batch.id}')">Explore</button>
                             <p class="batch-price">${batch.price}</p>
                             <a href="${batch.buyLink}" target="_blank"><button class="buy-btn">Buy Now</button></a>
                         </div>
