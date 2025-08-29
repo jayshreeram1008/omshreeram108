@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GurukulKagyan - Adhyatmik Book Store</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==================================== */
+        /* === Global Styles & Variables === */
+        /* ==================================== */
+        :root {
+            --primary-color: #5d3a77; /* Deeper purple */
+            --secondary-color: #b3566e; /* Muted rose */
+            --accent-color: #ff9d6c;
+            --bg-light: #fefefe;
+            --bg-dark: #121212;
+            --text-light: #333;
+            --text-dark: #f4f4f9;
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #1e1e1e;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-dark: rgba(255, 255, 255, 0.05);
+            --transition-speed: 0.4s ease;
+            --border-radius-large: 20px;
+            --border-radius-small: 10px;
+
+            /* Glow Effect Variables */
+            --glow-color: var(--accent-color);
+            --glow-spread: 15px;
+        }
+
+        /* ==================================== */
+        /* === Dark Mode Variables === */
+        /* ==================================== */
+        body.dark-mode {
+            --bg-light: var(--bg-dark);
+            --text-light: var(--text-dark);
+            --card-bg-light: var(--card-bg-dark);
+            --shadow-light: var(--shadow-dark);
+            color: var(--text-dark);
+        }
+
+        /* ==================================== */
+        /* === Base and Typography === */
+        /* ==================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem; /* Adjusted */
+        }
+
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 {
+            color: var(--accent-color);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            position: relative;
+            text-align: center;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem; /* Reduced Gap */
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ==================================== */
+        /* === Animations === */
+        /* ==================================== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 var(--secondary-color); }
+            70% { box-shadow: 0 0 0 10px rgba(179, 86, 110, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(179, 86, 110, 0); }
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 157, 108, 0.4);
+            }
+            100% {
+                box-shadow: 0 0 var(--glow-spread) var(--glow-spread) rgba(255, 157, 108, 0);
+            }
+        }
+        
+        body.dark-mode .book-card:hover, body.dark-mode .video-card:hover {
+            box-shadow: 0 15px 40px var(--shadow-dark), 0 0 var(--glow-spread) 0 var(--glow-color);
+            animation: glow 1.5s infinite alternate;
+        }
+
+        body.dark-mode .read-link:hover, body.dark-mode .watch-link:hover {
+            box-shadow: 0 0 var(--glow-spread) 0 var(--glow-color);
+        }
+
+
+        /* ==================================== */
+        /* === Layout & Containers === */
+        /* ==================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section-inner {
+            background-color: var(--card-bg-light);
+            border-radius: var(--border-radius-large);
+            padding: 2rem; /* Reduced Gap */
+            box-shadow: 0 10px 30px var(--shadow-light);
+            margin-bottom: 1rem; /* Reduced Gap */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .section-inner.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-dark);
+            text-align: center;
+            padding: 4rem 1rem; /* Reduced Gap */
+            border-radius: 0 0 var(--border-radius-large) var(--border-radius-large);
+            margin-bottom: 1.5rem; /* Adjusted */
+            position: relative;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius-small);
+            font-size: 1rem;
+            outline: none;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--text-light);
+        }
+
+        .search-box .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            pointer-events: none;
+        }
+
+        /* ==================================== */
+        /* === Header & Navigation === */
+        /* ==================================== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px var(--shadow-light);
+            transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        body.dark-mode .header {
+            background-color: rgba(30, 30, 30, 0.85);
+            box-shadow: 0 4px 15px var(--shadow-dark);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            position: relative;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-color);
+            transition: width var(--transition-speed);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .dark-mode-toggle {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .dark-mode-toggle i {
+            color: var(--primary-color);
+            transition: transform var(--transition-speed);
+        }
+
+        body.dark-mode .dark-mode-toggle i {
+            color: var(--accent-color);
+            transform: rotate(360deg);
+        }
+
+        /* ==================================== */
+        /* === Book Grids & Cards === */
+        /* ==================================== */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+        }
+
+        .books-grid-results {
+            margin-top: 1rem; /* Adjusted */
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+        }
+        
+        .book-card {
+            background: var(--card-bg-light);
+            border-radius: var(--border-radius-large);
+            box-shadow: 0 5px 20px var(--shadow-light);
+            text-align: center;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px var(--shadow-light);
+        }
+
+        .book-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: var(--border-radius-small);
+            margin-bottom: 1rem;
+            filter: grayscale(0.2);
+            transition: filter 0.3s ease;
+        }
+
+        .book-card:hover img {
+            filter: grayscale(0);
+        }
+
+        .book-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .book-card .read-link {
+            display: inline-block;
+            margin-top: auto; /* Pushes the button to the bottom */
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color var(--transition-speed), transform 0.2s ease, box-shadow var(--transition-speed);
+        }
+        
+        .book-card .read-link:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px 0 var(--accent-color);
+        }
+
+        .featured-books-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            padding-bottom: 1rem;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: var(--secondary-color) var(--card-bg-light); /* Firefox */
+        }
+
+        .featured-books-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .featured-books-scroll::-webkit-scrollbar-thumb {
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        .featured-books-scroll::-webkit-scrollbar-track {
+            background-color: var(--card-bg-light);
+        }
+
+        .featured-books-scroll .book-card {
+            flex-shrink: 0;
+            width: 250px;
+            scroll-snap-align: center;
+        }
+        
+        /* ==================================== */
+        /* === Katha Section === */
+        /* ==================================== */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .video-card {
+            background: var(--card-bg-light);
+            border-radius: var(--border-radius-large);
+            box-shadow: 0 5px 20px var(--shadow-light);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px var(--shadow-light);
+        }
+
+        .video-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .video-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .video-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .watch-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color var(--transition-speed), transform 0.2s ease, box-shadow var(--transition-speed);
+        }
+        
+        .watch-link:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px 0 var(--accent-color);
+        }
+
+        /* ==================================== */
+        /* === Quotes Section === */
+        /* ==================================== */
+        .quotes-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .quotes-container {
+            width: 100%;
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-style: italic;
+            font-weight: 600;
+            opacity: 0;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            color: var(--primary-color);
+            line-height: 1.4;
+        }
+
+        .quote-slide:nth-child(1) { animation-name: quoteFade; animation-delay: 0s; }
+        .quote-slide:nth-child(2) { animation-name: quoteFade; animation-delay: 4s; }
+        .quote-slide:nth-child(3) { animation-name: quoteFade; animation-delay: 2s; }
+        .quote-slide:nth-child(4) { animation-name: quoteFade; animation-delay: 4s; }
+        .quote-slide:nth-child(5) { animation-name: quoteFade; animation-delay: 2s; }
+        
+        @keyframes quoteFade {
+            0%, 10% { opacity: 0; }
+            20%, 80% { opacity: 1; }
+            90%, 100% { opacity: 0; }
+        }
+
+        .quotes-section p {
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+        
+        /* ==================================== */
+        /* === Gyan Section === */
+        /* ==================================== */
+        .gyan-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        
+        .gyan-text h3 {
+            font-family: 'Poppins', sans-serif;
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        /* ==================================== */
+        /* === Popup & Modal === */
+        /* ==================================== */
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .popup.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius-large);
+            max-width: 90%;
+            width: 700px;
+            text-align: center;
+            position: relative;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .popup-content.dark-mode {
+             background: var(--card-bg-dark);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        body.dark-mode .close-btn:hover {
+            color: var(--text-dark);
+        }
+
+        .popup-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .popup-content iframe {
+            width: 100%;
+            height: 400px;
+            border-radius: var(--border-radius-small);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-quote {
+            margin-top: 1.5rem;
+            font-style: italic;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        /* ==================================== */
+        /* === Footer === */
+        /* ==================================== */
+        .footer {
+            background-color: var(--primary-color);
+            color: #f4f4f9;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-icons {
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icons a {
+            font-size: 1.5rem;
+            color: #f4f4f9;
+            margin: 0 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+            color: var(--accent-color);
+        }
+
+        .footer-links {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: #f4f4f9;
+            margin: 0 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* ==================================== */
+        /* === Media Queries for Responsiveness === */
+        /* ==================================== */
+        @media (max-width: 768px) {
+            .header {
+                flex-wrap: wrap;
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                background-color: var(--card-bg-light);
+                box-shadow: 0 5px 10px var(--shadow-light);
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links a {
+                padding: 10px 0;
+                width: 100%;
+            }
+
+            .menu-toggle {
+                display: block;
+                order: 1;
+            }
+            
+            .menu-utilities {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                order: 2;
+            }
+
+            .books-grid, .books-grid-results, .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .quote-slide {
+                font-size: 1.2rem;
+            }
+
+            .popup-content iframe {
+                height: 250px;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-seedling"></i>
+            <span>GurukulKagyan</span>
+        </div>
+        <div class="menu-utilities">
+            <div class="dark-mode-toggle" id="darkModeToggle">
+                <i class="fas fa-sun"></i>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+        <nav class="nav-menu">
+    <ul class="nav-links">
+        <li><a href="#books">Books</a></li>
+        <li><a href="#quotes">Quotes</a></li>
+        <li><a href="#katha">Katha</a></li>
+        <li><a href="#gyan">Gyan</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#audiobooks">Audio Books</a></li> 
+    </ul>
+</nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>सत्य की प्राप्ति</h1>
+                <p>Explore a vast collection of spiritual wisdom and ancient scriptures that will guide you on your journey of self-discovery.</p>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search Ramayan, Mahabharth,Etc, or topics...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <section id="books" class="section">
+                <div class="section-inner">
+                    <h2>📚 Our Spiritual Collection</h2>
+                    <p id="searchResultsMsg" style="display: none; text-align: center; font-size: 1.2rem; font-style: italic;"></p>
+                    <div class="books-grid" id="allBooksGrid">
+                    </div>
+                    <div class="books-grid-results" id="searchResultsGrid">
+                    </div>
+                </div>
+            </section>
+
+            <section id="audiobooks" class="section">
+    <div class="section-inner">
+        <div id="audiobooks-list-view">
+            <h2>🎧 Audio Books</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: var(--secondary-color);">Listen to spiritual stories and scriptures.</p>
+            
+            <div class="books-grid">
+                <div class="book-card" data-book="bhagwat-gita">
+                    <img src="https://res.cloudinary.com/dratpppk4/image/upload/v1755491663/20250814_132539_pgzads.jpg" alt="Bhagavad Gita Audiobook">
+                    <h3>Bhagavad Gita</h3>
+                    <a href="#" class="read-link">Listen Now</a>
+                </div>
+                
+                <div class="book-card" data-book="ramayan">
+                    <img src="https://res.cloudinary.com/dratpppk4/image/upload/v1755493687/InShot_20250818_103513499_xxnwup.jpg" alt="Ramayan Audiobook">
+                    <h3>Ramayana</h3>
+                    <a href="#" class="read-link">Listen Now</a>
+                </div>
+                
+                </div>
+        </div>
+        
+        <div id="audiobook-details-view" style="display: none;">
+            <button id="back-to-list-btn" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center;">
+                <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Back
+            </button>
+            
+            <div id="audiobook-content">
+                </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Audio Book Data
+    const audiobooksData = {
+        'bhagwat-gita': {
+            title: 'Gita Audio Library',
+            audios: [
+                { name: 'Audio 1: Introduction', link: 'https://res.cloudinary.com/dratpppk4/video/upload/v1755588537/InShot_20250818_144449275_nlsldq.mp3' },
+                { name: 'Audio 2: Chapter 1', link: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+                { name: 'Audio 3: Chapter 2', link: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
+                { name: 'Audio 4: Chapter 3', link: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' }
+            ]
+        },
+        'ramayan': {
+            title: 'Ramayan Audio Library',
+            audios: [
+                { name: 'Audio 1', link: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
+                { name: 'Audio 2', link: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
+                { name: 'Audio 3', link: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' },
+                { name: 'Audio 4', link: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' }
+            ]
+        }
+    };
+
+    // --- JavaScript for Dynamic Content and Navigation ---
+
+    const listContainer = document.getElementById('audiobooks-list-view');
+    const detailsContainer = document.getElementById('audiobook-details-view');
+    const audiobookContent = document.getElementById('audiobook-content');
+    const backButton = document.getElementById('back-to-list-btn');
+
+    // Function to show a specific audiobook's details
+    function showAudiobookDetails(bookId) {
+        const bookData = audiobooksData[bookId];
+        if (!bookData) return; // Exit if no data is found
+
+        let audioListHtml = `<h2>${bookData.title}</h2><ul class="audio-list">`;
+        bookData.audios.forEach(audio => {
+            audioListHtml += `
+                <li class="audio-item">
+                    <h3>${audio.name}</h3>
+                    <audio controls>
+                        <source src="${audio.link}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </li>
+            `;
+        });
+        audioListHtml += `</ul>`;
+
+        audiobookContent.innerHTML = audioListHtml;
+        listContainer.style.display = 'none';
+        detailsContainer.style.display = 'block';
+    }
+
+    // Event listener for the "Back" button
+    backButton.addEventListener('click', () => {
+        detailsContainer.style.display = 'none';
+        listContainer.style.display = 'block';
+    });
+
+    // Event listeners for each audiobook card
+    document.querySelectorAll('#audiobooks .book-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            e.preventDefault();
+            const bookId = card.getAttribute('data-book');
+            showAudiobookDetails(bookId);
+        });
+    });
+</script>
+
+<style>
+    /* Styling for the audio list on the details page */
+    .audio-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .audio-item {
+        background-color: var(--card-bg-light);
+        border-radius: var(--border-radius-large);
+        box-shadow: 0 5px 20px var(--shadow-light);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+        transition: transform 0.3s ease;
+    }
+    .audio-item:hover {
+        transform: translateY(-5px);
+    }
+    .audio-item h3 {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        font-size: 1.2rem;
+        color: var(--primary-color);
+    }
+    
+    .audio-item audio {
+        width: 100%;
+        max-width: 400px;
+        filter: invert(1);
+    }
+
+    body.dark-mode .audio-item audio {
+        filter: invert(0);
+    }
+</style>
+
+            <section id="featured-books" class="section">
+                <div class="section-inner">
+                    <h2>🌟 Featured Books</h2>
+                    <p style="text-align: center; margin-bottom: 2rem; color: var(--secondary-color);">Handpicked titles to ignite your spiritual journey.</p>
+                    <div class="featured-books-scroll">
+                        <div class="book-card">
+                            <img src="https://res.cloudinary.com/dratpppk4/image/upload/v1755495283/InShot_20250818_110329276_jzruwc.jpg" alt="Essential Spiritual Writings">
+                            <h3>Essential Spiritual Writings</h3>
+                            <a href="#" class="read-link">Explore</a>
+                        </div>
+                        <div class="book-card">
+                            <img src="https://images.unsplash.com/photo-1596781284524-11816a75f284?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTgyMjl8MHwxfHxJbmRpYW4lMjBQaGlsb3NvcGh5fGVufDB8fHx8MTY5OTIyOTAyNHww&ixlib=rb-4.0.3&q=80&w=1080" alt="Indian Philosophy">
+                            <h3>Indian Philosophy</h3>
+                            <a href="#" class="read-link">Explore</a>
+                        </div>
+                        <div class="book-card">
+                            <img src="https://images.unsplash.com/photo-1596781284524-11816a75f284?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTgyMjl8MHwxfHxNZWRpdGF0aW9uJTIwR3VpZGV8ZW58MHx8fHwxNjk5MjI5MDc4fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Meditation Guide">
+                            <h3>The Path of Meditation</h3>
+                            <a href="#" class="read-link">Explore</a>
+                        </div>
+                        <div class="book-card">
+                            <img src="https://images.unsplash.com/photo-1596781284524-11816a75f284?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTgyMjl8MHwxfHxIeW1ucyUyQyUyMFByYXllcnN8ZW58MHx8fHwxNjk5MjI5MTIwfDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Hymns and Prayers">
+                            <h3>Divine Hymns & Prayers</h3>
+                            <a href="#" class="read-link">Explore</a>
+                        </div>
+                        <div class="book-card">
+                            <img src="https://images.unsplash.com/photo-1596781284524-11816a75f284?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTgyMjl8MHwxfHxTZWxlY3QlMjBQdXJhbmFzfGVufDB8fHx8MTY5OTIyOTIzNnww&ixlib=rb-4.0.3&q=80&w=1080" alt="Puranas">
+                            <h3>Puranas</h3>
+                            <a href="#" class="read-link">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="katha" class="section">
+                <div class="section-inner">
+                    <h2>📜 पुराणों की कथा</h2>
+                    <div class="video-grid" id="kathaVideosGrid">
+                    </div>
+                </div>
+            </section>
+
+            <section id="quotes" class="section quotes-section">
+                <div class="section-inner">
+                    <h2>✨ Adhyatmik Quotes</h2>
+                    <div class="quotes-container">
+                        <p class="quote-slide">“कर्म तेरे अच्छे हैं तो किस्मत तेरी दासी है, नीयत तेरी अच्छी है तो घर में मथुरा काशी है।”</p>
+                        <p class="quote-slide">“आध्यात्मिकता कोई नैतिकता का विज्ञान नहीं है। जो जीवन आप हैं, आध्यात्मिकता उसको विकसित करने के लिये है।”</p>
+                        <p class="quote-slide">“परमात्मा को खोजने के लिए बाहर नहीं, अपने भीतर देखें।”</p>
+                        <p class="quote-slide">“सत्य कभी छिपता नहीं वह सामने आ ही जाता हैं।”</p>
+                        <p class="quote-slide">“जो साहसी होते हैं वही अपने अंदर झाक सकते हैं।”</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <section id="gyan" class="section">
+                <div class="section-inner gyan-text">
+                    <h2>📖 आध्यात्मिक ज्ञान का सार</h2>
+                    <p>आध्यात्म के क्षेत्र में हम हमेशा से विश्व गुरु रहे हैं, सदियों से हमारे देश के ऋषियों-महर्षियों ने सम्पूर्ण विश्व को आध्यात्म का उपदेश दिया है और मानवता के विकास में योगदान दिया है।</p>
+                    <p>पिछले कुछ वर्षों से लोगों के मन में अध्यात्म के प्रति रूचि बढ़ रही है, क्यूंकि भौतिक सुख सुविधाएँ भी मनुष्य को वो ख़ुशी नहीं दे पा रही हैं जिनकी उन्होंने कल्पना की थी। हर कोई यह जानने को बेचैन है कि अध्यात्म आखिर क्या है? और मानव जीवन को उसके गौरवपूर्ण लक्ष्य तक पहुंचाने में में यह किस तरह मददगार हो सकता है? हम अपनी समस्याओं से कैसे पार पा सकते हैं? और कैसे बाहरी घटनाओं से अप्रभावित रहते हुए एक शाश्वत सुखदायक जीवन बिता सकते हैं?</p>
+                    <p>अनेकों के मन में अध्यात्म के शिखर पर पहुँचने की अभिलाषा इसलिए है, क्योंकि वे अपने व्यक्तित्व को पूर्णता देना चाहते हैं। जो महापुरुष आध्यात्मिक उन्नति के शिखर पर पहुँचे हैं उनके शब्दों में कहा जाय, तो अध्यात्म जीवन जीने की एक कला है, जो मनुष्य को हर दुःख, कष्ट, विपत्ति और चिंता से छुटकारा दिलाकर आनंद के राज्य में प्रवेश कराती है वो भी केवल कुछ समय के लिये नहीं, बल्कि काल की सीमाओं से परे जाकर अनंत काल के लिये। अध्यात्म आत्मा का विज्ञान है। इसे कहीं बाहर नहीं खोजना है, बल्कि इसकी कुंजी हमारे अपने ही भीतर है।</p>
+                    <p>साहसी बनो! शक्तिशाली बनो! निडर हो जाओ! जब एक बार आपने आध्यात्मिक जीवन जीने का संकल्प ले लिया, तो जब तक आपमें थोड़ी सी भी जान बची है तब तक संघर्ष कीजिये। भले ही आप यह जानते हों कि आप मरने वाले हैं, पर तब तक लड़िये, जब तक आप मर नहीं जाते। भय से मत मरिये। लड़ते हुए मरिये। तब तक नीचे मत गिरिये जब तक आपको धराशायी नहीं कर दिया जाता।</p>
+                </div>
+            </section>
+
+            <section id="about" class="section">
+                <div class="section-inner">
+                    <h2>✨ About GurukulKagyan</h2>
+                    <p>GurukulKagyan is a digital sanctuary dedicated to the timeless wisdom of spirituality. We believe that true happiness and inner peace are not found in the external world but within ourselves. Our mission is to provide a curated collection of spiritual books, profound knowledge, and inspiring quotes that guide you on your journey of self-discovery.</p>
+                    <p>Our platform is more than just a bookstore; it's a community for seekers, a place where ancient wisdom meets modern life. Whether you are a seasoned practitioner or just starting your journey, we hope our resources help you find clarity, purpose, and profound joy.</p>
+                </div>
+            </section>
+        </div>
+
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://whatsapp.com/channel/0029VaKfgds9xVJdhzrkc81l"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@gurukulkagyan"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> |
+                <a href="#">Terms of Service</a> |
+                <a href="https://wa.me/7017811269">Contact Us</a>
+            </div>
+            <p>&copy; 2025 GurukulKagyan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div class="popup" id="videoPopup">
+        <div class="popup-content">
+            <span class="close-btn" id="closePopupBtn">&times;</span>
+            <h2 id="videoPopupTitle"></h2>
+            <iframe id="videoIframe" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p class="popup-quote" id="videoPopupQuote"></p>
+        </div>
+    </div>
+
+    <script>
+        const allBooksData = [
+            { id: 1, title: 'Bhagavad Gita', img: 'https://res.cloudinary.com/dratpppk4/image/upload/v1755491663/20250814_132539_pgzads.jpg', keywords: ['gita', 'bhagwat', 'krishna', 'dharma'], link: 'https://drive.google.com/file/d/1AcOYQWAQh-tit9UYOYJ5IfL9VGzBaMHY/view?usp=drivesdk' },
+            { id: 2, title: 'The Vedas', img: 'https://images.unsplash.com/photo-1542435503-956c469947f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTgyMjl8MHwxfHNlYXJjaHwxfHxUaGUlMjBWZWRhc3xlbnwwfHx8fDE2OTkyMjg1NDJ8MA&ixlib=rb-4.0.3&q=80&w=1080', keywords: ['veda', 'hinduism', 'scripture', 'ancient'], link: '#' },
+            { id: 3, title: 'माया का रहस्य', img: 'https://res.cloudinary.com/dratpppk4/image/upload/v1755492436/20250812_194512_hallvz.jpg', keywords: ['maya', 'rahasya', 'hindi', 'mystery'], link: 'Coming soon' },
+            { id: 4, title: 'Upanishads', img: 'https://images.unsplash.com/photo-1579483329126-d6b9f2d1e2b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTgyMjl8MHwxfHxVUGFuaXNoYWRzfGVufDB8fHx8MTY5OTIyODc0MXww&ixlib=rb-4.0.3&q=80&w=1080', keywords: ['upanishad', 'philosophy', 'vedanta', 'hindu'], link: '#' },
+            { id: 5, title: 'Ramayana', img: 'https://res.cloudinary.com/dratpppk4/image/upload/v1755493687/InShot_20250818_103513499_xxnwup.jpg', keywords: ['ramayana', 'rama', 'sita', 'epic'], link: '#' },
+            { id: 6, title: 'Mahabharata', img: 'https://res.cloudinary.com/dratpppk4/image/upload/v1755495283/InShot_20250818_110329276_jzruwc.jpg', keywords: ['mahabharata', 'epic', 'pandavas', 'kuru'], link: '#' },
+            { id: 7, title: 'Yoga Sutras', img: 'https://images.unsplash.com/photo-1596781284524-11816a75f284?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTgyMjl8MHwxfHxZb2dhJTIwU3V0cmFzfGVufDB8fHx8MTY5OTIyODg1OHww&ixlib=rb-4.0.3&q=80&w=1080', keywords: ['yoga', 'sutras', 'patanjali', 'meditation'], link: '#' },
+            { id: 8, title: 'Autobiography of a Yogi', img: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTgyMjl8MHwxfHxBdXRvYmlvZ3JhcGh5JTIwb2YlMjBhJTIwWW9naXxlbnwwfHx8fDE2OTkyMjg5MTh8MA&ixlib=rb-4.0.3&q=80&w=1080', keywords: ['yogi', 'autobiography', 'paramahansa', 'yogananda'], link: '#' }
+        ];
+
+        const allVideosData = [
+            { id: 'NdOaw7ddV6o', title: 'योग से कर्म का विज्ञान', quote: '"आध्यात्मिकता का उस वातावरण से कोई लेना देना नहीं है। ये उस वातावरण के बारे में है जो आप अपने अंदर बनाते हैं।"', img: 'https://img.youtube.com/vi/NdOaw7ddV6o/maxresdefault.jpg' },
+            { id: '1u4269eT014', title: 'आत्मा और परमात्मा की कथा', quote: '"परमात्मा को खोजने के लिए बाहर नहीं, अपने भीतर देखें।"', img: 'https://img.youtube.com/vi/1u4269eT014/maxresdefault.jpg' },
+            { id: 'h7Tz2H1yLzQ', title: 'ध्यान से मन पर नियंत्रण', quote: '"जो साहसी होते हैं वही अपने अंदर झाक सकते हैं।"', img: 'https://img.youtube.com/vi/h7Tz2H1yLzQ/maxresdefault.jpg' },
+            { id: 'W-J2sJ42uHw', title: 'सत्य की खोज', quote: '"सत्य कभी छिपता नहीं वह सामने आ ही जाता हैं। "', img: 'https://img.youtube.com/vi/W-J2sJ42uHw/maxresdefault.jpg' }
+        ];
+
+        // Function to create a book card element
+        function createBookCard(book) {
+            const card = document.createElement('div');
+            card.classList.add('book-card');
+            card.setAttribute('data-keywords', book.keywords.join(' '));
+            card.innerHTML = `
+                <img src="${book.img}" alt="${book.title}">
+                <h3>${book.title}</h3>
+                <a href="${book.link}" class="read-link" target="_blank">Read Book</a>
+            `;
+            return card;
+        }
+        
+        // Function to create a video card element
+        function createVideoCard(video) {
+            const card = document.createElement('div');
+            card.classList.add('video-card');
+            card.innerHTML = `
+                <img src="${video.img}" alt="${video.title}">
+                <div class="video-content">
+                    <h3>${video.title}</h3>
+                    <button class="watch-link" data-video-id="${video.id}" data-video-title="${video.title}" data-video-quote="${video.quote}">Watch Now</button>
+                </div>
+            `;
+            return card;
+        }
+
+
+        // Populate the main book grid
+        const allBooksGrid = document.getElementById('allBooksGrid');
+        allBooksData.forEach(book => {
+            allBooksGrid.appendChild(createBookCard(book));
+        });
+
+        // Populate the katha video grid
+        const kathaVideosGrid = document.getElementById('kathaVideosGrid');
+        allVideosData.forEach(video => {
+            kathaVideosGrid.appendChild(createVideoCard(video));
+        });
+
+
+        // --- All JavaScript functionality combined ---
+
+        // 1. Menu and Dark Mode Toggles
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.querySelector('.nav-links');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        function updateToggleIcon(isDarkMode) {
+            const icon = darkModeToggle.querySelector('i');
+            if (isDarkMode) {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            } else {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            updateToggleIcon(isDarkMode);
+        });
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            body.classList.add('dark-mode');
+            updateToggleIcon(true);
+        } else {
+            updateToggleIcon(false);
+        }
+
+        // 2. Popup with multiple videos
+        const videoPopup = document.getElementById('videoPopup');
+        const closePopupBtn = document.getElementById('closePopupBtn');
+        const videoIframe = document.getElementById('videoIframe');
+        const videoPopupTitle = document.getElementById('videoPopupTitle');
+        const videoPopupQuote = document.getElementById('videoPopupQuote');
+        
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('watch-link')) {
+                e.preventDefault();
+                const videoId = e.target.getAttribute('data-video-id');
+                const videoTitle = e.target.getAttribute('data-video-title');
+                const videoQuote = e.target.getAttribute('data-video-quote');
+
+                videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                videoPopupTitle.textContent = videoTitle;
+                videoPopupQuote.textContent = videoQuote;
+                videoPopup.classList.add('show');
+            }
+        });
+
+        closePopupBtn.addEventListener('click', () => {
+            videoPopup.classList.remove('show');
+            videoIframe.src = ''; // Stop the video
+        });
+
+        // 3. Scroll-based Animations
+        const sections = document.querySelectorAll('.section-inner');
+
+        const observerOptions = {
+            root: null,
+            threshold: 0.2,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // 4. Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        const allBooksGridContainer = document.getElementById('allBooksGrid');
+        const searchResultsGridContainer = document.getElementById('searchResultsGrid');
+        const searchResultsMsg = document.getElementById('searchResultsMsg');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            
+            if (query === '') {
+                allBooksGridContainer.style.display = 'grid';
+                searchResultsGridContainer.style.display = 'none';
+                searchResultsMsg.style.display = 'none';
+                return;
+            }
+
+            const filteredBooks = allBooksData.filter(book => {
+                const titleMatch = book.title.toLowerCase().includes(query);
+                const keywordMatch = book.keywords.some(keyword => keyword.toLowerCase().includes(query));
+                return titleMatch || keywordMatch;
+            });
+
+            searchResultsGridContainer.innerHTML = '';
+            
+            if (filteredBooks.length > 0) {
+                filteredBooks.forEach(book => {
+                    searchResultsGridContainer.appendChild(createBookCard(book));
+                });
+                searchResultsMsg.style.display = 'none';
+                searchResultsGridContainer.style.display = 'grid';
+                allBooksGridContainer.style.display = 'none';
+            } else {
+                searchResultsMsg.textContent = `No results found for "${e.target.value}".`;
+                searchResultsMsg.style.display = 'block';
+                searchResultsGridContainer.style.display = 'none';
+                allBooksGridContainer.style.display = 'none';
+            }
+        });
+
+        // 5. Active Link Highlighting
+        const navLinksList = document.querySelectorAll('.nav-links a');
+        window.addEventListener('scroll', () => {
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    currentSection = section.parentNode.id;
+                }
+            });
+
+            navLinksList.forEach(link => {
+                link.classList.remove('active');
+                if (link.href.includes(currentSection)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
